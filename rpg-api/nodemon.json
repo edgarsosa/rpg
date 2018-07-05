@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "ignore": ["*.spec.js", ".yaml", "./migrations", "*.log"],
+  "legacyWatch": true
+}

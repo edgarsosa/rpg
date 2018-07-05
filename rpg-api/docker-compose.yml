@@ -1,0 +1,54 @@
+version: '3'
+services:
+  rpg-api:
+    container_name: rpg-api
+    build: .
+    command: npm run dev
+    env_file: .env
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules/
+    ports:
+      - '3000:3000'
+#      - '9090:9090'
+#      - '9000:9090' # it's possible to map multiple ports at same
+    depends_on:
+      - rpg-api-pg
+      - rpg-api-redis
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      LOG_PATH: /usr/app/logs
+      POSTGRES_HOST: rpg-api-pg
+      POSTGRES_PASSWORD: password123
+      POSTGRES_USER: rpg-api-pg
+      POSTGRES_DB: rpg-api-pg
+      REDIS_PORT: 6379
+      REDIS_HOST: rpg-api-redis
+      REDIS_PASSWORD: secret2
+      REDIS_DB_CACHE: 0
+    external_links:
+      - rpg-api-pg
+      - rpg-api-redis
+    network_mode: bridge
+
+  rpg-api-pg:
+    container_name: rpg-api-pg
+    image: postgres:9.6.8-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: password123
+      POSTGRES_USER: rpg-api-pg
+      POSTGRES_DB: rpg-api-pg
+    network_mode: bridge
+
+  rpg-api-redis:
+    container_name: rpg-api-redis
+    image: redis:3.2.10-alpine
+    command: >
+      --requirepass secret2
+    ports:
+      - "6379:6379"
+    network_mode: bridge

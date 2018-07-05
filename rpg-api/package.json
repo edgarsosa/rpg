@@ -1,0 +1,29 @@
+{
+  "name": "rpg-api",
+  "version": "0.1.0",
+  "description": "RPG REST API server",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "swagger": "^0.7.5"
+  },
+  "devDependencies": {
+    "jasmine": "^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "nodemon": "^1.17.5",
+    "nyc": "^12.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run serve",
+    "serve": "node -r dotenv/config index.js dotenv_config_path=.env",
+    "dev": "node ./node_modules/nodemon/bin/nodemon.js --exec npm run serve"
+  },
+  "author": "edgarsosa",
+  "license": "ISC"
+}
